@@ -14,9 +14,6 @@ $.fn.goiBoxMaker = function(settingOption) {
 		"boxHeight"    : 200, 
 		"clickAction"  : 180
 		},settingOption);
-    
-    
-      
 
     //Get the element Height
     var surfaceWidth = setting.boxWidth;
@@ -32,9 +29,15 @@ $.fn.goiBoxMaker = function(settingOption) {
 	var halfWidth = surfaceWidth/2;
     
 	//set cube children position to absolute
-	this.children().css({
+	this.children("div.front,div.back,div.top,div.bottom").css({
 		"position":"absolute",
-		"width":surfaceWidth, "height":surfaceHeight
+		"width":surfaceWidth, 
+		"height":surfaceHeight
+	});
+	this.children("div.right,div.left").css({
+		"position":"absolute",
+		"width":surfaceHeight, 
+		"height":surfaceHeight
 	});
 
 	//create a cube by css setting 
@@ -49,7 +52,6 @@ $.fn.goiBoxMaker = function(settingOption) {
 		"-o-transition":"all 1000ms",
 		"transition":"all 1000ms"
 	});
-
 
 	this.parent().css({
 		"position"            : "relative",
@@ -75,51 +77,41 @@ $.fn.goiBoxMaker = function(settingOption) {
 		"transform"           :"rotateX(-90deg)"
 	});
 	this.children("div.left").css({
-		"left"                :"-"+halfWidth+"px",
+		"left"                :"-"+halfHeight+"px",
 		"-webkit-transform"   :"rotateY(90deg)",
 		"-ms-transform"       :"rotateY(90deg)",
 		"-o-transform"        :"rotateY(90deg)",
 		"transform"           :"rotateY(90deg)"
 	});	
     this.children("div.right").css({
-		"right"                :"-"+halfWidth+"px",
+		"right"                :"-"+halfHeight+"px",
 		"-webkit-transform"   :"rotateY(90deg)",
 		"-ms-transform"       :"rotateY(90deg)",
 		"-o-transform"        :"rotateY(90deg)",
 		"transform"           :"rotateY(90deg)"
 	});	
 	
-
-    
-  
-
 	this.on('click',function(event){
-		
-        event.preventDefault();
-         if(this.flag != 1){
-         $(this).css({
-		"-webkit-transform": "rotateX(-"+setting.clickAction+"deg)",
-		"-ms-transform"    : "rotateX(-"+setting.clickAction+"deg)",
-		"-o-transform"     : "rotateX(-"+setting.clickAction+"deg)",
-		"transform"        : "rotateX(-"+setting.clickAction+"deg)"
-		});
-         this.flag = 1;
-         
+         event.preventDefault();
+         if(typeof this.flag === "undefined" || this.flag === 0){
+	         $(this).css({
+			"-webkit-transform": "rotateY(-"+setting.clickAction+"deg)",
+			"-ms-transform"    : "rotateY(-"+setting.clickAction+"deg)",
+			"-o-transform"     : "rotateY(-"+setting.clickAction+"deg)",
+			"transform"        : "rotateY(-"+setting.clickAction+"deg)",
+			});
+	         this.flag = 1;
          }
          else if(this.flag == 1){
-		   $(this).css({
-		"-webkit-transform": "rotateX(0deg)",
-		"-ms-transform"    : "rotateX(0deg)",
-		"-o-transform"     : "rotateX(0deg)",
-		"transform"        : "rotateX(0deg)"
-		});
-		   this.flag = 0;
+			$(this).css({
+			"-webkit-transform": "rotateY(0deg)",
+			"-ms-transform"    : "rotateY(0deg)",
+			"-o-transform"     : "rotateY(0deg)",
+			"transform"        : "rotateY(0deg)"
+			});
+			this.flag = 0;
 	     }
-	  	
-       
      });   
-
-	
    return this;
  }; 
 })( jQuery );
