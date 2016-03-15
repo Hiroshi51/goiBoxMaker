@@ -15,7 +15,7 @@ $.fn.goiBoxMaker = function(settingOption) {
 		"clickAction"  : 180
 		},settingOption);
 
-    //Get the element Height
+    //Get the element Width
     var surfaceWidth = setting.boxWidth;
 
     //Get the element Height
